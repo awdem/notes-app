@@ -5,9 +5,11 @@
 const fs = require('fs');
 const NotesView = require('./notesView');
 const NotesModel = require('./notesModel');
+const NotesClient = require('./notesClient');
 
 describe('Notes view class', () => {
   let model;
+  let client;
   let view;
 
   beforeEach(() => {
@@ -15,12 +17,14 @@ describe('Notes view class', () => {
     // Otherwise you can't put elements in the constructor methods
     document.body.innerHTML = fs.readFileSync('./index.html');
     model = new NotesModel();
-    view = new NotesView(model);
+    client = new NotesClient();
+    view = new NotesView(model, client);
   });
 
   it('constructs', () => {
     expect(view).toBeTruthy();
     expect(view).toHaveProperty('notesModel', model);
+    expect(view).toHaveProperty('notesClient', client);
   });
 
   it('creates a new div element on the page for each note in the model', () => {

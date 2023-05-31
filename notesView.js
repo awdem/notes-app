@@ -1,7 +1,8 @@
 /* eslint-disable require-jsdoc */
 class NotesView {
-  constructor(model) {
+  constructor(model, client) {
     this.notesModel = model;
+    this.notesClient = client;
     //  event listener for add note button
     document.querySelector('#add_note_button').addEventListener('click', () => {
       this.addNote();
