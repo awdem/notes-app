@@ -2,13 +2,20 @@
 class NotesView {
   constructor(model) {
     this.notesModel = model;
-    // add note button event listener
+    //  event listener for add note button
     document.querySelector('#add_note_button').addEventListener('click', () => {
       this.addNote();
+      // resets text field to empty
+      document.querySelector('#add_note_button_text').value = null;
     });
   }
 
   displayNotes() {
+  // removes all previous notes
+    document.querySelectorAll('div.note').forEach((noteElement) => {
+      noteElement.remove();
+    });
+
     const notes = this.notesModel.getNotes();
     notes.forEach((note) => {
       const newDiv = document.createElement('div');

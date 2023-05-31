@@ -54,17 +54,17 @@ describe('Notes view class', () => {
     expect(notes.item(0).textContent).toBe('Buy some groceries');
   });
 
-  // it('displays the right number of notes when called twice', () => {
-  //   const textInputField = document.querySelector('#add_note_button_text');
-  //   const buttonEl = document.querySelector('#add_note_button');
+  it('displays the right number of notes when called twice', () => {
+    const textInputField = document.querySelector('#add_note_button_text');
+    const buttonEl = document.querySelector('#add_note_button');
 
-  //   textInputField.value = 'note one';
-  //   buttonEl.click();
-  //   textInputField.value = 'note two';
-  //   buttonEl.click();
+    textInputField.value = 'note one';
+    buttonEl.click();
+    textInputField.value = 'note two';
+    buttonEl.click();
 
-  //   const notes = document.querySelectorAll('div.note');
+    const notes = document.querySelectorAll('div.note');
 
-  //   expect(notes.length).toBe(2);
+    expect(notes.length).toBe(2);
   });
 });
