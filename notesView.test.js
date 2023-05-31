@@ -11,9 +11,11 @@ describe('Notes view class', () => {
   let view;
 
   beforeEach(() => {
+    // line below this comment has to go before others!
+    // Otherwise you can't put elements in the constructor methods
+    document.body.innerHTML = fs.readFileSync('./index.html');
     model = new NotesModel();
     view = new NotesView(model);
-    document.body.innerHTML = fs.readFileSync('./index.html');
   });
 
   it('constructs', () => {
@@ -36,5 +38,33 @@ describe('Notes view class', () => {
   
     expect(noteOne.textContent).toBe('Go to work');
     expect(noteTwo.textContent).toBe('Go to sleep');
+  });
+
+  it('adds a note then displays on click', () => {
+    // text input
+    const textInputField = document.querySelector('#add_note_button_text');
+    textInputField.value = 'Buy some groceries';
+    // button click
+    const buttonEl = document.querySelector('#add_note_button');
+    buttonEl.click();
+
+    const notes = document.querySelectorAll('div.note');
+
+    expect(notes.length).toBe(1);
+    expect(notes.item(0).textContent).toBe('Buy some groceries');
+  });
+
+  // it('displays the right number of notes when called twice', () => {
+  //   const textInputField = document.querySelector('#add_note_button_text');
+  //   const buttonEl = document.querySelector('#add_note_button');
+
+  //   textInputField.value = 'note one';
+  //   buttonEl.click();
+  //   textInputField.value = 'note two';
+  //   buttonEl.click();
+
+  //   const notes = document.querySelectorAll('div.note');
+
+  //   expect(notes.length).toBe(2);
   });
 });
