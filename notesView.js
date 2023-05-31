@@ -10,7 +10,7 @@ class NotesView {
       const newDiv = document.createElement('div');
       newDiv.textContent = note;
       newDiv.className = 'note';
-      document.body.append(newDiv);
+      document.querySelector('#main-container').append(newDiv);
     });
   }
 }
