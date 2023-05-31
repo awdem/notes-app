@@ -29,4 +29,12 @@ describe('NotesModel class', () => {
     model.reset();
     expect(model.getNotes()).toEqual([]);
   });
+
+  it('sets the notes attribute', () => {
+    const newNotes = ['new note'];
+
+    model.setNotes(newNotes);
+
+    expect(model).toHaveProperty('notes', newNotes);
+  });
 });

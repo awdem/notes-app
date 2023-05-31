@@ -8,6 +8,10 @@ class NotesModel {
     return this.notes;
   }
 
+  setNotes(newNotes) {
+    this.notes = newNotes;
+  }
+
   addNotes(note) {
     this.notes.push(note);
   }
