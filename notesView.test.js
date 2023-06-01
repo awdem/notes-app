@@ -7,6 +7,9 @@ const NotesView = require('./notesView');
 const NotesModel = require('./notesModel');
 const NotesClient = require('./notesClient');
 
+jest.mock('./notesClient');
+
+
 describe('Notes view class', () => {
   let model;
   let client;
@@ -19,6 +22,7 @@ describe('Notes view class', () => {
     model = new NotesModel();
     client = new NotesClient();
     view = new NotesView(model, client);
+    NotesClient.mockClear();
   });
 
   it('constructs', () => {
@@ -39,7 +43,7 @@ describe('Notes view class', () => {
 
     const noteOne = matches.item(0);
     const noteTwo = matches.item(1);
-  
+
     expect(noteOne.textContent).toBe('Go to work');
     expect(noteTwo.textContent).toBe('Go to sleep');
   });
@@ -70,5 +74,21 @@ describe('Notes view class', () => {
     const notes = document.querySelectorAll('div.note');
 
     expect(notes.length).toBe(2);
+  });
+
+  it('displays notes from the api', () => {
+    // mock client methods first
+    const mockData = ['mock api note'];
+
+    client.loadNotes.mockImplementation((callback) => {
+      return Promise.resolve(callback(mockData));
+    });
+
+    return view.displayNotesFromApi()
+        .then(() => {
+          const notes = document.querySelectorAll('div.note');
+          expect(notes.length).toBe(1);
+          expect(notes.item(0).textContent).toBe('mock api note');
+        });
   });
 });

@@ -31,6 +31,13 @@ class NotesView {
     this.notesModel.addNotes(newNoteText);
     this.displayNotes();
   }
+
+  displayNotesFromApi() {
+    return this.notesClient.loadNotes((data) => {
+      this.notesModel.setNotes(data);
+      this.displayNotes();
+    });
+  };
 }
 
 module.exports = NotesView;
