@@ -34,7 +34,7 @@ describe('notes client class', () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(newNote),
+          body: JSON.stringify({content: newNote}),
         },
     );
   });
