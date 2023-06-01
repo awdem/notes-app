@@ -5,7 +5,7 @@ class NotesView {
     this.notesClient = client;
     //  event listener for add note button
     document.querySelector('#add_note_button').addEventListener('click', () => {
-      this.addNote();
+      this.addNoteToApi();
       // resets text field to empty
       document.querySelector('#add_note_button_text').value = null;
     });
@@ -25,11 +25,20 @@ class NotesView {
       document.querySelector('#main-container').append(newDiv);
     });
   }
-
+  // this just adds notes to the model, we need to add notes to the server
+  // those notes are then set in the displayNotesFromApi() that is
+  // called in the index file
   addNote() {
     const newNoteText = document.querySelector('#add_note_button_text').value;
     this.notesModel.addNotes(newNoteText);
     this.displayNotes();
+  }
+  // this adds notes the server then updates the display with server notes.
+  // why does this work even though its calling an async function before final line?
+  addNoteToApi() {
+    const newNoteText = document.querySelector('#add_note_button_text').value;
+    this.notesClient.createNote(newNoteText);
+    this.displayNotesFromApi();
   }
 
   displayNotesFromApi() {

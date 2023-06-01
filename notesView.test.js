@@ -47,14 +47,31 @@ describe('Notes view class', () => {
     expect(noteOne.textContent).toBe('Go to work');
     expect(noteTwo.textContent).toBe('Go to sleep');
   });
+  // is this a good test?
+  it('adds a note and displays on click', async () => {
+    // // text input
+    // const textInputField = document.querySelector('#add_note_button_text');
+    // textInputField.value = 'Buy some groceries';
+    // // set mock function implementations
+    // client.createNote.mockImplementation(() => {
+    //   // do i need this?
+    // });
 
-  it('adds a note then displays on click', () => {
-    // text input
-    const textInputField = document.querySelector('#add_note_button_text');
-    textInputField.value = 'Buy some groceries';
+    // it turns out i don't need any of the above...
+
+    // mock implementation of loadNotes
+    client.loadNotes.mockImplementation(() => {
+      const data = ['Buy some groceries'];
+      model.setNotes(data);
+      view.displayNotes();
+    });
+
     // button click
     const buttonEl = document.querySelector('#add_note_button');
     buttonEl.click();
+
+    expect(client.loadNotes).toHaveBeenCalled();
+
 
     const notes = document.querySelectorAll('div.note');
 
@@ -62,12 +79,26 @@ describe('Notes view class', () => {
     expect(notes.item(0).textContent).toBe('Buy some groceries');
   });
 
-  it('displays the right number of notes when called twice', () => {
+  it('displays the right number of notes when two submissions are made', () => {
     const textInputField = document.querySelector('#add_note_button_text');
     const buttonEl = document.querySelector('#add_note_button');
 
+    // mock implementation of loadNotes with one note
+    client.loadNotes.mockImplementationOnce(() => {
+      const data = ['Buy some groceries'];
+      model.setNotes(data);
+      view.displayNotes();
+    });
+
     textInputField.value = 'note one';
     buttonEl.click();
+
+    // mock implementation of loadNotes with two notes (after second submission)
+    client.loadNotes.mockImplementationOnce(() => {
+      const data = ['Buy some groceries', 'Go Home'];
+      model.setNotes(data);
+      view.displayNotes();
+    });
     textInputField.value = 'note two';
     buttonEl.click();
 
