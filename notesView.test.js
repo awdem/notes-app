@@ -79,7 +79,10 @@ describe('Notes view class', () => {
   it('displays notes from the api', () => {
     // mock client methods first
     const mockData = ['mock api note'];
-
+    // this replaces loadNotes with a new function that takes a callback
+    // and returns a promise that is using the mockData in the
+    // callback. So it's very similar to the real loadNotes, but it
+    // skips the fetch to make the test deterministic.
     client.loadNotes.mockImplementation((callback) => {
       return Promise.resolve(callback(mockData));
     });
