@@ -38,8 +38,6 @@ describe('notes client class', () => {
     });
   });
 
-
-
   it('sends a POST request with a new note', () => {
     const newNote = 'new note';
     client.createNote(newNote);

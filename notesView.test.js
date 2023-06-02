@@ -6,7 +6,6 @@ const fs = require('fs');
 const NotesView = require('./notesView');
 const NotesModel = require('./notesModel');
 const NotesClient = require('./notesClient');
-const { error } = require('console');
 
 jest.mock('./notesClient');
 
@@ -49,8 +48,9 @@ describe('Notes view class', () => {
     expect(noteTwo.textContent).toBe('Go to sleep');
   });
   // is this a good test?
+  // it doesn't test that the text input is what's being added as a note..
   it('adds a note and displays on click', async () => {
-    // // text input
+    // text input
     // const textInputField = document.querySelector('#add_note_button_text');
     // textInputField.value = 'Buy some groceries';
     // // set mock function implementations
@@ -79,9 +79,20 @@ describe('Notes view class', () => {
     expect(notes.length).toBe(1);
     expect(notes.item(0).textContent).toBe('Buy some groceries');
   });
+  // how do I do this?
+  // it('adds the input value in the text field as a note', () => {
+  //   // mocking ??
+
+  //   const textInputField = document.querySelector('#add_note_button_text');
+  //   textInputField.value = 'Buy some groceries';
+
+  //   const buttonEl = document.querySelector('#add_note_button');
+  //   buttonEl.click();
+
+  //   // assertions?
+  // });
 
   it('displays the right number of notes when two submissions are made', () => {
-    const textInputField = document.querySelector('#add_note_button_text');
     const buttonEl = document.querySelector('#add_note_button');
 
     // mock implementation of loadNotes with one note
@@ -91,7 +102,6 @@ describe('Notes view class', () => {
       view.displayNotes();
     });
 
-    textInputField.value = 'note one';
     buttonEl.click();
 
     // mock implementation of loadNotes with two notes (after second submission)
@@ -100,7 +110,7 @@ describe('Notes view class', () => {
       model.setNotes(data);
       view.displayNotes();
     });
-    textInputField.value = 'note two';
+
     buttonEl.click();
 
     const notes = document.querySelectorAll('div.note');
