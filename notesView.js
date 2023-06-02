@@ -34,7 +34,7 @@ class NotesView {
     this.displayNotes();
   }
   // this adds notes the server then updates the display with server notes.
-  // why does this work even though its calling an async function before final line?
+  // why does this work despite it calling an async function before final line?
   addNoteToApi() {
     const newNoteText = document.querySelector('#add_note_button_text').value;
     this.notesClient.createNote(newNoteText);
@@ -47,6 +47,13 @@ class NotesView {
       this.displayNotes();
     });
   };
+
+  displayError() {
+    const errorMessage = document.createElement('div');
+    errorMessage.className = 'error-message';
+    errorMessage.textContent = 'Oops something went wrong!';
+    document.querySelector('#main-container').append(errorMessage);
+  }
 }
 
 module.exports = NotesView;

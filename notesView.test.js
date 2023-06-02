@@ -6,6 +6,7 @@ const fs = require('fs');
 const NotesView = require('./notesView');
 const NotesModel = require('./notesModel');
 const NotesClient = require('./notesClient');
+const { error } = require('console');
 
 jest.mock('./notesClient');
 
@@ -124,5 +125,13 @@ describe('Notes view class', () => {
           expect(notes.length).toBe(1);
           expect(notes.item(0).textContent).toBe('mock api note');
         });
+  });
+
+  it('it appends an error message to page when displayError is called', () => {
+    view.displayError();
+
+    errorMessage = document.querySelector('div.error-message');
+    expect(errorMessage).toBeTruthy();
+    expect(errorMessage.textContent).toBe('Oops something went wrong!');
   });
 });
