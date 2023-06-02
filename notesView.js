@@ -45,7 +45,7 @@ class NotesView {
     return this.notesClient.loadNotes((data) => {
       this.notesModel.setNotes(data);
       this.displayNotes();
-    });
+    }, this.displayError);
   };
 
   displayError() {
